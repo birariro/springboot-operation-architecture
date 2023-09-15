@@ -1,0 +1,10 @@
+pluginManagement {
+    repositories {
+        maven { url 'https://repo.spring.io/milestone' }
+        maven { url 'https://repo.spring.io/snapshot' }
+        gradlePluginPortal()
+    }
+}
+rootProject.name = 'springboot-operation-architecture'
+include 'app:auth-api'
+include 'app:order-api'

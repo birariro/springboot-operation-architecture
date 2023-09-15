@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+
+  mariadb:
+    container_name: arch-db
+    image: mariadb:10.8.3
+    volumes:
+      - ./resources/db/:/docker-entrypoint-initdb.d/
+    ports:
+      - "11810:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "0000"
+      MYSQL_DATABASE: "db"
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
