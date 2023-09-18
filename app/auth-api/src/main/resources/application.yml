@@ -1,7 +1,7 @@
 server:
   port: 11801
   tomcat:
-    basedir: .
+    basedir: ./app/auth-api
     accesslog:
       enabled: true
       directory: logs
@@ -20,3 +20,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus

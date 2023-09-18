@@ -57,6 +57,10 @@ subprojects {
 
         // mariadb
         implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.4'
+
+        //Spring Boot Actuator
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
     }
 
 }

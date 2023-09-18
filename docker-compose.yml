@@ -1,5 +1,9 @@
 version: '3.8'
 
+networks:
+  elk-network:
+    driver: bridge
+
 services:
 
   mariadb:
@@ -14,51 +18,16 @@ services:
       MYSQL_DATABASE: "db"
     command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
 
-  filebeat:
-    container_name: arch-filebeat
-    image: docker.elastic.co/beats/filebeat:7.10.2
-    platform: linux/amd64
+  prometheus:
+    container_name: arch-prometheus
+    image: prom/prometheus
+    ports:
+      - "11820:9090"
     volumes:
-      - ./share/filebeat.yml:/usr/share/filebeat/filebeat.yml
-      - ./logs:/logs
-    networks:
-      - elk-network
+      - ./resources/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
 
-  logstash:
-    container_name: arch-logstash
-    image: docker.elastic.co/logstash/logstash:7.11.2-arm64
-    platform: linux/amd64
-    networks:
-      - elk-network
+  grafana:
+    container_name: arch-grafana
+    image: grafana/grafana
     ports:
-      - "5044:5044"
-    volumes:
-      - ./share/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-    depends_on:
-      - filebeat
-
-  elasticsearch:
-    container_name: arch-elasticsearch
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2-arm64
-    platform: linux/amd64
-    networks:
-      - elk-network
-    ports:
-      - "9200:9200"
-      - "9300:9300"
-    environment:
-      discovery.type: single-node
-    depends_on:
-      - logstash
-
-
-  kibana:
-    container_name: arch-kibana
-    image: docker.elastic.co/kibana/kibana:7.10.2
-    platform: linux/amd64
-    networks:
-      - elk-network
-    ports:
-      - "5601:5601"
-    depends_on:
-      - elasticsearch
+      - "11830:3000"
