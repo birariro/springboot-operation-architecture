@@ -3,8 +3,6 @@ set names utf8;
 
 CREATE TABLE `TB_MEMBER` (
                              `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                             `create_date` timestamp(6) NOT NULL DEFAULT current_timestamp(6),
-                             `update_date` timestamp(6) NOT NULL DEFAULT current_timestamp(6),
                              `login_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
                              `login_pwd` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
                              `nick_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -22,3 +20,18 @@ INSERT INTO TB_MEMBER (LOGIN_ID, LOGIN_PWD, NICK_NAME)  VALUES ('id7', 'pwd7', '
 INSERT INTO TB_MEMBER (LOGIN_ID, LOGIN_PWD, NICK_NAME)  VALUES ('id8', 'pwd8', 'nickname8');
 INSERT INTO TB_MEMBER (LOGIN_ID, LOGIN_PWD, NICK_NAME)  VALUES ('id9', 'pwd9', 'nickname9');
 
+
+
+CREATE TABLE `TB_PRODUCT` (
+                             `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                             `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                             `price` bigint(20) COLLATE utf8_bin NOT NULL DEFAULT 0 ,
+                             `count` bigint(20) COLLATE utf8_bin NOT NULL DEFAULT 0 ,
+                             PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+INSERT INTO TB_PRODUCT (name, price, count)  VALUES ('책상', 100000, 210);
+INSERT INTO TB_PRODUCT (name, price, count)  VALUES ('의자', 40000, 1000);
+INSERT INTO TB_PRODUCT (name, price, count)  VALUES ('모자', 35000, 540);
+INSERT INTO TB_PRODUCT (name, price, count)  VALUES ('핸드폰', 1750000, 330);

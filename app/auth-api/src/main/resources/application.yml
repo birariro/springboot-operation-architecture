@@ -1,6 +1,14 @@
 server:
   port: 11801
-
+  tomcat:
+    basedir: .
+    accesslog:
+      enabled: true
+      directory: logs
+      suffix: .log
+      prefix: access_log
+      file-date-format: .yyyy-MM-dd
+      pattern: "%{yyyy-MM-dd HH:mm:ss}t %s %r %{User-Agent}i %{Referer}i %a %b"
 
 spring:
   datasource:

@@ -13,3 +13,52 @@ services:
       MYSQL_ROOT_PASSWORD: "0000"
       MYSQL_DATABASE: "db"
     command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+
+  filebeat:
+    container_name: arch-filebeat
+    image: docker.elastic.co/beats/filebeat:7.10.2
+    platform: linux/amd64
+    volumes:
+      - ./share/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - ./logs:/logs
+    networks:
+      - elk-network
+
+  logstash:
+    container_name: arch-logstash
+    image: docker.elastic.co/logstash/logstash:7.11.2-arm64
+    platform: linux/amd64
+    networks:
+      - elk-network
+    ports:
+      - "5044:5044"
+    volumes:
+      - ./share/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    depends_on:
+      - filebeat
+
+  elasticsearch:
+    container_name: arch-elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2-arm64
+    platform: linux/amd64
+    networks:
+      - elk-network
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      discovery.type: single-node
+    depends_on:
+      - logstash
+
+
+  kibana:
+    container_name: arch-kibana
+    image: docker.elastic.co/kibana/kibana:7.10.2
+    platform: linux/amd64
+    networks:
+      - elk-network
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch

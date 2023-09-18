@@ -4,11 +4,14 @@
 
 ## port
 
-| port  | name |
-|-------| --- |
-| 11801 | auth server |
-| 11802 | order server |
-| 11810 | mariadb |
+| port   | name |
+|--------| --- |
+| 11801  | auth server |
+| 11802  | order server |
+| 11810  | mariadb |
+| 5044   | logstash |
+| 9200, 9300 | elasticsearch |
+| 5601  | kibana |
 
 
 
