@@ -4,13 +4,14 @@
 
 ## port
 
-| port  | name |
-|-------| --- |
+| port  | name        |
+|-------|-------------|
 | 11801 | auth server |
 | 11802 | order server |
-| 11810 | mariadb |
-| 11820 | prometheus |
-| 11830 | grafana |
+| 11810 | mariadb     |
+| 11820 | prometheus  |
+| 3000 | grafana     |
+| 3100 | loki        |
 
 
 
@@ -22,6 +23,9 @@ docker-compose up
 
 > **Note**  
 > You can also run all services in the background (detached mode) by appending the `-d` flag to the above command.
+
+### grafana -> prometheus data sources 연결
+http url : http://host.docker.internal:11820
 
 ## document
 

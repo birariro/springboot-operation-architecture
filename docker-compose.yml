@@ -37,8 +37,7 @@ services:
     image: grafana/loki:2.9.1
     volumes:
       - ./resources/loki:/mnt/config
-    command:
-      - "-config.file=/mnt/config/loki-config.yaml"
+    command: -config.file=/mnt/config/loki-config.yaml
     ports:
       - "3100:3100"
 
@@ -48,5 +47,4 @@ services:
     volumes:
       - ./resources/loki:/mnt/config
       - ./resources/loki/log:/var/log
-    command:
-      - "-config.file=/mnt/config/promtail-config.yaml"
+    command: -config.file=/mnt/config/promtail-config.yaml
