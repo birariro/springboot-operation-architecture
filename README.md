@@ -24,8 +24,10 @@ docker-compose up
 > **Note**  
 > You can also run all services in the background (detached mode) by appending the `-d` flag to the above command.
 
-### grafana -> prometheus data sources 연결
-http url : http://host.docker.internal:11820
+### grafana 설정
+prometheus http url : http://host.docker.internal:11820 </br>
+loki http url : http://host.docker.internal:3100 </br>
+grafana dashboard : https://grafana.com/grafana/dashboards/17175-spring-boot-observability/
 
 ## document
 
@@ -38,6 +40,6 @@ Loki 에게 전달하는 역활을 수행한다.
 
 ### loki
 Promtail 로 부터 로그를 수신 하여 
-로그 데이터를 효율적으로 보관 하도록 최적화된 데이터 자장소이다. </br>
+로그 데이터를 효율적으로 보관 하도록 최적화된 데이터 저장소이다. </br>
 
 문서(https://grafana.com/docs/loki/v2.8.x/fundamentals/overview/)
