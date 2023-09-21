@@ -1,0 +1,16 @@
+FROM openjdk:11 AS builder
+
+#build file move
+COPY gradlew .
+COPY gradle gradle
+COPY .gradle .gradle
+COPY build.gradle .
+COPY settings.gradle .
+COPY app/order-api app/order-api
+RUN chmod +x ./gradlew
+
+RUN ./gradlew app:order-api:build -x test
+
+FROM openjdk:11-jre-slim AS order
+COPY --from=builder ./app/order-api/build/libs/*.jar ./build/order.jar
+CMD ["java","-jar","./build/order.jar"]

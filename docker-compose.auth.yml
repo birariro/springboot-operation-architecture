@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+
+  auth-api:
+    container_name: auth-api
+    build:
+      context: .
+      dockerfile: dockerfile.auth
+    ports:
+      - "11801:11801"
+    volumes:
+      - auth-logs:/app/auth-api/logs
+
+  auth-promtail:
+    container_name: auth-promtail
+    image: grafana/promtail:2.9.1
+    volumes:
+      - ./resources/loki:/mnt/config
+      - auth-logs:/var/log
+    command: -config.file=/mnt/config/promtail-config.yaml
+    depends_on:
+      - auth-api
+
+volumes:
+  auth-logs:

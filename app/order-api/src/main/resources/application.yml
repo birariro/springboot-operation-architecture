@@ -13,10 +13,9 @@ server:
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://127.0.0.1:11810/db
+    url: jdbc:mariadb://soa-db:3306/db
     username: root
     password: '0000'
-
   jpa:
     hibernate:
       ddl-auto: none

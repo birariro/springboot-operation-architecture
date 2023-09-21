@@ -6,20 +6,8 @@ networks:
 
 services:
 
-  mariadb:
-    container_name: arch-db
-    image: mariadb:10.8.3
-    volumes:
-      - ./resources/db/:/docker-entrypoint-initdb.d/
-    ports:
-      - "11810:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: "0000"
-      MYSQL_DATABASE: "db"
-    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
-
   prometheus:
-    container_name: arch-prometheus
+    container_name: prometheus
     image: prom/prometheus
     ports:
       - "11820:9090"
@@ -27,13 +15,13 @@ services:
       - ./resources/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
 
   grafana:
-    container_name: arch-grafana
+    container_name: grafana
     image: grafana/grafana
     ports:
       - "3000:3000"
 
   loki:
-    container_name: arch-loki
+    container_name: loki
     image: grafana/loki:2.9.1
     volumes:
       - ./resources/loki:/mnt/config
@@ -42,7 +30,7 @@ services:
       - "3100:3100"
 
   promtail:
-    container_name: arch-promtail
+    container_name: promtail
     image: grafana/promtail:2.9.1
     volumes:
       - ./resources/loki:/mnt/config

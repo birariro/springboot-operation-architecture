@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+
+
+  order-api:
+    container_name: order-api
+    build:
+      context: .
+      dockerfile: dockerfile.order
+    ports:
+      - "11802:11802"
+    volumes:
+      - order-logs:/app/order-api/logs
+
+  order-promtail:
+    container_name: order-promtail
+    image: grafana/promtail:2.9.1
+    volumes:
+      - ./resources/loki:/mnt/config
+      - order-logs:/var/log
+    command: -config.file=/mnt/config/promtail-config.yaml
+    depends_on:
+      - order-api
+
+volumes:
+  order-logs:

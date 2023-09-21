@@ -8,3 +8,4 @@ pluginManagement {
 rootProject.name = 'springboot-operation-architecture'
 include 'app:auth-api'
 include 'app:order-api'
+

@@ -18,11 +18,15 @@
 ### the beginning of database for docker compose
 
 ```shell
-docker-compose up
+docker compose -f docker-compose.db.yml up --build -d
+docker compose -f docker-compose.auth.yml up --build -d
+docker compose -f docker-compose.order.yml up --build -d
 ```
 
 > **Note**  
 > You can also run all services in the background (detached mode) by appending the `-d` flag to the above command.
+
+
 
 ### grafana 설정
 prometheus http url : http://host.docker.internal:11820 </br>

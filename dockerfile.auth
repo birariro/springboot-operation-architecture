@@ -1,0 +1,17 @@
+FROM openjdk:11 AS builder
+
+#build file move
+COPY gradlew .
+COPY gradle gradle
+COPY .gradle .gradle
+COPY build.gradle .
+COPY settings.gradle .
+COPY app/auth-api app/auth-api
+RUN chmod +x ./gradlew
+
+RUN ./gradlew app:auth-api:build -x test
+
+
+FROM openjdk:11-jre-slim AS auth
+COPY --from=builder ./app/auth-api/build/libs/*.jar ./build/auth.jar
+CMD ["java","-jar","./build/auth.jar"]
