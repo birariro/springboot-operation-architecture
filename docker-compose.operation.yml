@@ -28,11 +28,3 @@ services:
     command: -config.file=/mnt/config/loki-config.yaml
     ports:
       - "3100:3100"
-
-  promtail:
-    container_name: promtail
-    image: grafana/promtail:2.9.1
-    volumes:
-      - ./resources/loki:/mnt/config
-      - ./resources/loki/log:/var/log
-    command: -config.file=/mnt/config/promtail-config.yaml

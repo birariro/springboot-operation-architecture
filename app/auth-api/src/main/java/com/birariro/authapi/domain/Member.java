@@ -1,5 +1,6 @@
 package com.birariro.authapi.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,15 +11,18 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table
-@Entity(name = "tb_member")
+@Table(name = "tb_member")
+@Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+  @Column(name = "login_id")
   private String loginId;
+  @Column(name = "login_pwd")
   private String loginPWD;
-  private String nickName;
+  @Column(name = "nick_name")
+  private String nickname;
 }

@@ -1,7 +1,7 @@
 server:
   port: 11801
   tomcat:
-    basedir: ./app/auth-api
+    basedir: .
     accesslog:
       enabled: true
       directory: logs
@@ -9,6 +9,12 @@ server:
       prefix: access_log
       file-date-format: .yyyy-MM-dd
       pattern: "%{yyyy-MM-dd HH:mm:ss}t %s %r %{User-Agent}i %{Referer}i %a %b"
+
+logging:
+  level:
+    com.birariro.authapi: DEBUG
+  file:
+    name: ./logs/authapi.log
 
 spring:
   datasource:

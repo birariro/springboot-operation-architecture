@@ -10,7 +10,7 @@ services:
     ports:
       - "11801:11801"
     volumes:
-      - auth-logs:/app/auth-api/logs
+      - auth-logs:/logs
 
   auth-promtail:
     container_name: auth-promtail

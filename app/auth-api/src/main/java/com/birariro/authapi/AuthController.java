@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.birariro.authapi.domain.Member;
@@ -25,11 +27,11 @@ public class AuthController {
   private final MemberRepository memberRepository;
 
   @PostMapping("/login")
-  public ResponseEntity login(LoginDto loginDto)  {
+  public ResponseEntity login(@RequestBody LoginDto loginDto)  {
 
     log.debug("login request : ", loginDto);
 
-    Member member = memberRepository.findByLoginId(loginDto.id)
+    Member member = memberRepository.findByLoginId(loginDto.getId())
         .orElseThrow(() -> new IllegalArgumentException());
 
 
@@ -40,11 +42,5 @@ public class AuthController {
     return ResponseEntity.ok().body("hello");
   }
 
-  @NoArgsConstructor
-  @Getter
-  @ToString
-  class LoginDto{
-    private String id;
-    private String pwd;
-  }
+
 }

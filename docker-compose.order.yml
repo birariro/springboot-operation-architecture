@@ -11,7 +11,7 @@ services:
     ports:
       - "11802:11802"
     volumes:
-      - order-logs:/app/order-api/logs
+      - order-logs:/logs
 
   order-promtail:
     container_name: order-promtail
