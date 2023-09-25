@@ -1,13 +1,16 @@
 [![version](https://img.shields.io/badge/springboot-2.7.16--SNAPSHOT-00bfb3?style=flat&logo=springboot)]()
 
+## Description
+주문 프로세스에서 발생할수있는 예외 상황을 
+로그로 추적이 가능하도록 한다.
+
+### 케이스
+- 없는 유저 정보로 주문을 생성하는 경우
+- 존재하지 않는 상품을 주문
+- 상품의 재고 보다 더 많은 양의 주문
 
 
-```
-auth server <- promtail -> loki <- grafana
-order server <- promtail 
-```
-
-## port
+## Environment
 
 | port  | name         |
 |-------|--------------|
@@ -18,8 +21,12 @@ order server <- promtail
 | 3000 | grafana      |
 | 3100 | loki         |
 
+```
+auth server <- promtail -> loki <- grafana
+order server <- promtail 
+```
 
-
+## Usage
 ### the beginning of service for docker compose
 
 ```shell
@@ -30,10 +37,20 @@ docker compose -f docker-compose.operation.yml up --build -d
 ```
 
 
-### grafana 설정
+### grafana setting
 prometheus http url : http://host.docker.internal:11820 </br>
 loki http url : http://host.docker.internal:3100 </br>
 grafana dashboard : https://grafana.com/grafana/dashboards/17175-spring-boot-observability/
+
+
+### success process
+order -> user check -> product check -> order check -> success
+
+```
+curl -d '{"memberId": 1, "productId" : 3, "count": 2}' \
+-H "Content-Type: application/json" \
+-X POST http://localhost:11802/order
+``` 
 
 ## document
 
@@ -52,5 +69,3 @@ Promtail 로 부터 로그를 수신 하여
 [loki 문서](https://grafana.com/docs/loki/v2.8.x/fundamentals/overview/)
 
 
-## process
-1. order -> user check -> product check -> order check -> success

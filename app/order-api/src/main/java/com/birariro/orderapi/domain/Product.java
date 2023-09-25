@@ -24,6 +24,8 @@ public class Product {
 
     public Long calculationPaymentPrice(Long orderCount){
 
+        if(this.count - orderCount < 0) throw new IllegalStateException("재고 부족");
+
         this.count -= orderCount;
         return this.price * orderCount;
     }
