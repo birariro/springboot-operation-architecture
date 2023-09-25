@@ -19,7 +19,7 @@ logging:
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://soa-db:3306/db
+    url: jdbc:mariadb://db:3306/db
     username: root
     password: '0000'
 

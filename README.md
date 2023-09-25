@@ -1,4 +1,5 @@
 [![version](https://img.shields.io/badge/springboot-2.7.16--SNAPSHOT-00bfb3?style=flat&logo=springboot)]()
+[![version](https://img.shields.io/badge/Java-11-00bfb3?style=flat&logo=sdk)]()
 
 ## Description
 주문 프로세스에서 발생할수있는 예외 상황을 
