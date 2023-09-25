@@ -50,3 +50,7 @@ Promtail 로 부터 로그를 수신 하여
 로그 데이터를 효율적으로 보관 하도록 최적화된 데이터 저장소이다. </br>
 
 [loki 문서](https://grafana.com/docs/loki/v2.8.x/fundamentals/overview/)
+
+
+## process
+1. order -> user check -> product check -> order check -> success

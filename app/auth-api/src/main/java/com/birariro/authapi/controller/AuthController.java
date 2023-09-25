@@ -1,4 +1,4 @@
-package com.birariro.authapi;
+package com.birariro.authapi.controller;
 
 
 import org.springframework.http.ResponseEntity;
@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.birariro.authapi.controller.LoginDto;
 import com.birariro.authapi.domain.Member;
 import com.birariro.authapi.domain.MemberRepository;
 

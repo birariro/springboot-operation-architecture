@@ -1,4 +1,4 @@
-package com.birariro.authapi;
+package com.birariro.authapi.controller;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

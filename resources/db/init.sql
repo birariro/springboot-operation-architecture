@@ -35,3 +35,13 @@ INSERT INTO tb_product (name, price, count)  VALUES ('책상', 100000, 210);
 INSERT INTO tb_product (name, price, count)  VALUES ('의자', 40000, 1000);
 INSERT INTO tb_product (name, price, count)  VALUES ('모자', 35000, 540);
 INSERT INTO tb_product (name, price, count)  VALUES ('핸드폰', 1750000, 330);
+
+
+
+CREATE TABLE `tb_orders` (
+                              `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                              `member_id` bigint(20) COLLATE utf8_bin NOT NULL,
+                              `product_id` bigint(20) COLLATE utf8_bin NOT NULL,
+                              `payment_price` bigint(20) COLLATE utf8_bin NOT NULL,
+                              PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
