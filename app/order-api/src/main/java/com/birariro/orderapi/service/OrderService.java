@@ -31,13 +31,18 @@ public class OrderService {
 
   public void save(Long memberId, Long productId, Long count) throws NotFoundException {
 
-    if(!validMember(memberId)) throw new NotFoundException();
+    if(!validMember(memberId)) {
+      log.warn("not exist member "+ memberId);
+      throw new NotFoundException();
+    }
 
     Product product = productRepository.findById(productId)
         .orElseThrow(() -> new NotFoundException());
 
-    Order order = new Order(memberId, productId,
-        product.calculationPaymentPrice(count));
+    Long paymentPrice = product.calculationPaymentPrice(count);
+    Order order = new Order(memberId, productId, paymentPrice);
+
+    log.debug("order : "+ order);
 
     orderRepository.save(order);
   }

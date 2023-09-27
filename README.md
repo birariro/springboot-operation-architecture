@@ -53,6 +53,28 @@ curl -d '{"memberId": 1, "productId" : 3, "count": 2}' \
 -X POST http://localhost:11802/order
 ``` 
 
+### fail process
+
+not found api path
+```
+curl -X GET http://localhost:11802/delete
+```
+
+not exist product order
+```
+curl -d '{"memberId": 1, "productId" : 65535, "count": 2}' \
+-H "Content-Type: application/json" \
+-X POST http://localhost:11802/order
+```
+
+overflow product count order
+```
+curl -d '{"memberId": 1, "productId" : 1, "count": 99999999}' \
+-H "Content-Type: application/json" \
+-X POST http://localhost:11802/order
+```
+
+
 ## document
 
 [loki + promtail 설치 가이드](https://grafana.com/docs/loki/latest/setup/install/docker/)

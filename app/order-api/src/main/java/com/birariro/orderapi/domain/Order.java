@@ -10,10 +10,12 @@ import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "tb_orders")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
 @Getter
 public class Order {
 
