@@ -37,9 +37,15 @@ public class OrderService {
     }
 
     Product product = productRepository.findById(productId)
-        .orElseThrow(() -> new NotFoundException());
+        .orElseThrow(() -> {
+          log.warn("not exist product " + productId);
+          return new NotFoundException();
+        });
 
-    Long paymentPrice = product.calculationPaymentPrice(count);
+    Long paymentPrice = product
+              .calculationPaymentPrice(count);
+
+    log.debug(String.format("product '%s' %d order payment price = %d", product.getName(),count, paymentPrice));
     Order order = new Order(memberId, productId, paymentPrice);
 
     log.debug("order : "+ order);

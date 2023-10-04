@@ -37,6 +37,8 @@ docker compose -f docker-compose.order.yml up --build -d
 docker compose -f docker-compose.operation.yml up --build -d
 ```
 
+> **Note**  
+> cache delete build option `--force-recreate`
 
 ### grafana setting
 prometheus http url : http://host.docker.internal:11820 </br>
@@ -47,7 +49,7 @@ grafana dashboard : https://grafana.com/grafana/dashboards/17175-spring-boot-obs
 ### success process
 order -> user check -> product check -> order check -> success
 
-```
+```shell
 curl -d '{"memberId": 1, "productId" : 3, "count": 2}' \
 -H "Content-Type: application/json" \
 -X POST http://localhost:11802/order
@@ -56,19 +58,19 @@ curl -d '{"memberId": 1, "productId" : 3, "count": 2}' \
 ### fail process
 
 not found api path
-```
+```shell
 curl -X GET http://localhost:11802/delete
 ```
 
 not exist product order
-```
+```shell
 curl -d '{"memberId": 1, "productId" : 65535, "count": 2}' \
 -H "Content-Type: application/json" \
 -X POST http://localhost:11802/order
 ```
 
 overflow product count order
-```
+```shell
 curl -d '{"memberId": 1, "productId" : 1, "count": 99999999}' \
 -H "Content-Type: application/json" \
 -X POST http://localhost:11802/order

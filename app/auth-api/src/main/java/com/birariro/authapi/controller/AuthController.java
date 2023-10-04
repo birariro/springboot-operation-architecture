@@ -48,7 +48,7 @@ public class AuthController {
   @GetMapping("/check")
   public ResponseEntity check(@RequestParam("id") Long id){
 
-    log.debug("member check id : ", id);
+    log.debug("member check id : " + id);
 
      memberRepository.findById(id)
         .orElseThrow(() -> new IllegalArgumentException());
