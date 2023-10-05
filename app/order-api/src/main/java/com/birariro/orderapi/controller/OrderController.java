@@ -1,7 +1,10 @@
 package com.birariro.orderapi.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +24,8 @@ public class OrderController {
   private final OrderService orderService;
 
   @PostMapping("/order")
-  public ResponseEntity order(@RequestBody OrderRequest orderRequest) throws NotFoundException {
+  public ResponseEntity order(@Valid @RequestBody OrderRequest orderRequest) throws NotFoundException {
+
 
     orderService.save(orderRequest.getMemberId(), orderRequest.getProductId(), orderRequest.getCount());
     return ResponseEntity.ok().build();

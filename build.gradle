@@ -61,6 +61,8 @@ subprojects {
         //Spring Boot Actuator
         implementation 'org.springframework.boot:spring-boot-starter-actuator'
         runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+
+        implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.5.2'
     }
 
 }

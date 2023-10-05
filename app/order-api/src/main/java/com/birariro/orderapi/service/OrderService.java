@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 
 import com.birariro.orderapi.domain.Order;
@@ -31,10 +32,12 @@ public class OrderService {
 
   public void save(Long memberId, Long productId, Long count) throws NotFoundException {
 
-    if(!validMember(memberId)) {
-      log.warn("not exist member "+ memberId);
-      throw new NotFoundException();
-    }
+    Assert.notNull(memberId, "memberId cannot be null");
+    Assert.notNull(productId, "productId cannot be null");
+    Assert.notNull(count, "count cannot be null");
+    Assert.isTrue(count <= 0 ,"count cannot be NegativeOrZero");
+
+    Assert.isTrue(!validMember(memberId), "not exist member "+ memberId);
 
     Product product = productRepository.findById(productId)
         .orElseThrow(() -> {
