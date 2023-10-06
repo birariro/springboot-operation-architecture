@@ -25,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 public class OrderService {
   private final ProductRepository productRepository;
   private final OrderRepository orderRepository;
+  private final AuthClient authClient;
 
   public List<Order> find(){
     return orderRepository.findAll();
@@ -35,9 +36,12 @@ public class OrderService {
     Assert.notNull(memberId, "memberId cannot be null");
     Assert.notNull(productId, "productId cannot be null");
     Assert.notNull(count, "count cannot be null");
-    Assert.isTrue(count <= 0 ,"count cannot be NegativeOrZero");
+    Assert.isTrue(count > 0 ,"count cannot be NegativeOrZero");
 
-    Assert.isTrue(!validMember(memberId), "not exist member "+ memberId);
+    if(!authClient.validMember(memberId)){
+      log.debug("not exist member "+ memberId);
+      throw new IllegalArgumentException("not exist member "+ memberId);
+    }
 
     Product product = productRepository.findById(productId)
         .orElseThrow(() -> {
@@ -56,15 +60,5 @@ public class OrderService {
     orderRepository.save(order);
   }
 
-  public boolean validMember(Long memberId){
 
-    String url = "http://host.docker.internal:11801/check?id=" + memberId;
-    RestTemplate restTemplate = new RestTemplate();
-    ResponseEntity<Object> forEntity = restTemplate.getForEntity(url, Object.class);
-
-    HttpStatus statusCode = forEntity.getStatusCode();
-    log.debug("checkMember response http statue code : "+ statusCode);
-
-    return statusCode.is2xxSuccessful();
-  }
 }
