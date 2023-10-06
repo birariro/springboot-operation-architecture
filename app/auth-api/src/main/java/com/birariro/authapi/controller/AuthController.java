@@ -1,8 +1,13 @@
 package com.birariro.authapi.controller;
 
 
+import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,13 +39,20 @@ public class AuthController {
   private final MemberRepository memberRepository;
 
   @PostMapping("/login")
-  public ResponseEntity login(@RequestBody LoginDto loginDto)  {
+  public ResponseEntity login(@Valid @RequestBody LoginDto loginDto)  {
 
     log.debug("login request : ", loginDto);
 
-    Member member = memberRepository.findByLoginId(loginDto.getId())
-        .orElseThrow(() -> new IllegalArgumentException());
+    Optional<Member> memberActor = memberRepository.findByLoginId(loginDto.getId());
 
+    if(!memberActor.isPresent())
+      return ResponseEntity.notFound().build();
+
+    Member member = memberActor.get();
+
+    if(!member.match(loginDto.getPwd())){
+      return ResponseEntity.notFound().build();
+    }
 
     return ResponseEntity.ok().body(member);
   }
@@ -55,11 +67,5 @@ public class AuthController {
 
      return ResponseEntity.ok().build();
   }
-
-  @GetMapping("/hello")
-  public ResponseEntity hello()  {
-    return ResponseEntity.ok().body("hello");
-  }
-
 
 }

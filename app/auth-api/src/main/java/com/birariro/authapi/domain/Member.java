@@ -25,4 +25,14 @@ public class Member {
   private String loginPWD;
   @Column(name = "nick_name")
   private String nickname;
+
+  public Member(String loginId, String loginPWD, String nickname) {
+    this.loginId = loginId;
+    this.loginPWD = loginPWD;
+    this.nickname = nickname;
+  }
+
+  public boolean match(String pwd){
+    return loginPWD.equals(pwd);
+  }
 }

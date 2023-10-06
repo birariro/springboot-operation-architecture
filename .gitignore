@@ -4,6 +4,7 @@ HELP.md
 build/
 
 ./app/*/build/
+./app/*/logs/
 ./app/*/.gradle
 
 ### IntelliJ IDEA ###
