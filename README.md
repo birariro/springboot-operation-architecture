@@ -18,22 +18,54 @@
 | 11801 | auth server  |
 | 11802 | order server |
 | 11810 | db           |
+| 9104 | db-exporter     |
 | 11820 | prometheus   |
 | 3000 | grafana      |
 | 3100 | loki         |
 
+
+
 ```
-auth server <- promtail -> loki <- grafana
-order server <- promtail 
+           +-------------+         +----------+               
+  | -----  | auth server | <------ | promtail |   ---------|   
+  |        +-------------+         +----------+            |
+  |                                                        |>      
+  |        +--------------+        +----------+        +------+           
+  | -----  | order server | <----- | promtail | -----> | loki |  -----------|   
+  |        +--------------+        +----------+        +------+             |
+  |                                                                         |>
+  |        +------+        +-------------+        +------------+         +-----------+  
+  |----->  |  DB  | <----- | DB Exporter | -----> | Prometheus |  --->   |  Grafana  |
+  |        +------+        +-------------+        +------------+         +-----------+
+  |                                                      |>
+  +----------+                                           |
+  | actuator | ------------------------------------------|
+  +----------+      
 ```
 
 ## Usage
-### the beginning of service for docker compose
+###서비스 docker compose
 
 ```shell
 docker compose -f docker-compose.db.yml up --build -d
 docker compose -f docker-compose.auth.yml up --build -d
 docker compose -f docker-compose.order.yml up --build -d
+```
+
+### 모니터링 docker compose
+
+database 에 접근하여 상태 조회 쿼리를 호출할 계정 생성
+```shell
+$ docker exec -it db /bin/bash
+
+mysql -u root -p
+
+mysql> CREATE USER 'exporter-user'@'%' IDENTIFIED BY '0000' WITH MAX_USER_CONNECTIONS 3;
+mysql> GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'exporter-user'@'%';
+```
+
+모니터링 docker compose 실행
+```shell
 docker compose -f docker-compose.operation.yml up --build -d
 ```
 

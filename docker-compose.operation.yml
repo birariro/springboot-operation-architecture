@@ -1,10 +1,14 @@
 version: '3.8'
 
-networks:
-  elk-network:
-    driver: bridge
-
 services:
+
+  vk-db-exporter:
+    container_name: vk-db-exporter
+    image: prom/mysqld-exporter
+    environment:
+      DATA_SOURCE_NAME: "exporter-user:0000@(db:6633)/"
+    ports:
+      - "9104:9104"
 
   prometheus:
     container_name: prometheus
